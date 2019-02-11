@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store";
-import Notepad from "./views/Notepad.vue";
+import NotepadModule from "./views/NotepadModule.vue";
 import ConfigModule from "./views/ConfigModule.vue";
 
 Vue.use(Router);
@@ -11,7 +11,7 @@ const router = new Router({
     {
       path: "/",
       name: "home",
-      component: Notepad
+      component: NotepadModule
     },
     {
       path: "/config",
