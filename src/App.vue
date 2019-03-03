@@ -49,12 +49,8 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-            <router-view />
-          </v-flex>
-        </v-layout>
+      <v-container fluid fill-height class="body">
+        <router-view />
       </v-container>
     </v-content>
     <!--<v-footer app fixed>-->
@@ -86,6 +82,10 @@ export default {
 @import "../node_modules/vuetify/dist/vuetify.min.css";
 a {
   text-decoration: none;
+}
+
+.AlgaCluedoNotepad .body {
+  align-items: flex-start;
 }
 
 .AlgaCluedoNotepad .router-link {
