@@ -1,5 +1,5 @@
 <template>
-  <VFlex row>
+  <VFlex row class="NotepadModule">
     <v-data-table
       :headers="headers"
       :items="weapons"
@@ -8,11 +8,11 @@
       hide-actions
     >
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
+        <td class="NotepadModule__cell">{{ props.item.name }}</td>
         <td
           v-for="(a, index) in new Array(players.length + 1)"
           :key="`weapons-${index}`"
-          class="cell"
+          class="NotepadModule__cell"
           @click="
             setAnswer({ answer: 'weapons', name: props.item.name, index })
           "
@@ -32,11 +32,11 @@
       hide-actions
     >
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
+        <td class="NotepadModule__cell">{{ props.item.name }}</td>
         <td
           v-for="(a, index) in new Array(players.length + 1)"
           :key="`places-${index}`"
-          class="cell"
+          class="NotepadModule__cell"
           @click="setAnswer({ answer: 'places', name: props.item.name, index })"
         >
           <VIcon>{{ answers.places[props.item.name][index] }}</VIcon>
@@ -54,11 +54,11 @@
       hide-actions
     >
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
+        <td class="NotepadModule__cell">{{ props.item.name }}</td>
         <td
           v-for="(a, index) in new Array(players.length + 1)"
           :key="`characters-${index}`"
-          class="cell"
+          class="NotepadModule__cell"
           @click="
             setAnswer({ answer: 'characters', name: props.item.name, index })
           "
@@ -107,7 +107,12 @@ export default {
 </script>
 
 <style>
-.cell {
-  cursor: pointer;
-}
+  table.v-table thead th:not(:first-child) {
+    padding: 0 10px !important;
+  }
+
+  .NotepadModule__cell {
+    cursor: pointer;
+    padding: 0 10px !important;
+  }
 </style>

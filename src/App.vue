@@ -49,7 +49,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height class="body">
+      <v-container fluid fill-height class="body App__body">
         <router-view />
       </v-container>
     </v-content>
@@ -91,4 +91,8 @@ a {
 .AlgaCluedoNotepad .router-link {
   color: #ffffff;
 }
+
+  .App__body {
+    padding: 0;
+  }
 </style>
