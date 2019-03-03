@@ -65,13 +65,44 @@ const places = [
   { name: "Study" }
 ];
 
+const checkStates = {
+  default: "check_box_outline_blank",
+  maybe: "indeterminate_check_box",
+  right: "check_box"
+};
+
+const answers = {
+  characters: {},
+  places: {},
+  weapons: {}
+};
+
+characters.forEach(c => {
+  const defaults = {};
+  [0, 1, 2, 3, 4, 5].forEach(i => (defaults[i] = checkStates.default));
+  answers.characters[c.name] = defaults;
+});
+
+weapons.forEach(c => {
+  const defaults = {};
+  [0, 1, 2, 3, 4, 5].forEach(i => (defaults[i] = checkStates.default));
+  answers.weapons[c.name] = defaults;
+});
+
+places.forEach(c => {
+  const defaults = {};
+  [0, 1, 2, 3, 4, 5].forEach(i => (defaults[i] = checkStates.default));
+  answers.places[c.name] = defaults;
+});
+
 export default new Vuex.Store({
   state: {
     user: {},
     players: storage.get("players") || [null, null, null, null, null],
     characters: storage.get("characters") || characters,
     weapons: storage.get("weapons") || weapons,
-    places: storage.get("places") || places
+    places: storage.get("places") || places,
+    answers: storage.get("answers") || answers
   },
   getters: {
     isPlayersSet({ players }) {
@@ -88,11 +119,41 @@ export default new Vuex.Store({
     setPlayers(state, payload) {
       state.players = payload;
       storage.set("players", state.players);
+    },
+    setAnswer(state, { answer, name, index }) {
+      // state.players = payload;
+      // storage.set("players", state.players);
+
+      console.log("change", answer, name, index);
+      if (state.answers[answer][name][index] === "check_box_outline_blank") {
+        state.answers[answer][name][index] = Vue.set(
+          state.answers[answer][name],
+          index,
+          "indeterminate_check_box"
+        );
+      } else if (
+        state.answers[answer][name][index] === "indeterminate_check_box"
+      ) {
+        state.answers[answer][name][index] = Vue.set(
+          state.answers[answer][name],
+          index,
+          "check_box"
+        );
+      } else {
+        state.answers[answer][name][index] = Vue.set(
+          state.answers[answer][name],
+          index,
+          "check_box_outline_blank"
+        );
+      }
     }
   },
   actions: {
     setPlayers({ commit }, payload) {
       commit("setPlayers", payload);
+    },
+    setAnswer({ commit }, payload) {
+      commit("setAnswer", payload);
     }
   }
 });
