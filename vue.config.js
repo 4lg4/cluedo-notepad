@@ -1,3 +1,3 @@
 module.exports = {
-  outputDir: 'gh-pages',
+  outputDir: 'docs',
 };
