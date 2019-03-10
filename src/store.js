@@ -41,7 +41,7 @@ const characters = [
   { name: "Orchid" },
   { name: "Peacock" },
   { name: "Plum" },
-  { name: "Scarlet" }
+  { name: "Scarlet" },
 ];
 
 const weapons = [
@@ -50,7 +50,7 @@ const weapons = [
   { name: "Lead Pipe" },
   { name: "Revolver" },
   { name: "Rope" },
-  { name: "Wrench" }
+  { name: "Wrench" },
 ];
 
 const places = [
@@ -62,19 +62,19 @@ const places = [
   { name: "Kitchen" },
   { name: "Library" },
   { name: "Lounge" },
-  { name: "Study" }
+  { name: "Study" },
 ];
 
 const checkStates = {
-  default: "check_box_outline_blank",
-  maybe: "indeterminate_check_box",
-  right: "check_box"
+  default: "radio_button_unchecked",
+  maybe: "help_outline",
+  checked: "check_circle_outline"
 };
 
 const answers = {
   characters: {},
   places: {},
-  weapons: {}
+  weapons: {},
 };
 
 characters.forEach(c => {
@@ -102,7 +102,7 @@ export default new Vuex.Store({
     characters: storage.get("characters") || characters,
     weapons: storage.get("weapons") || weapons,
     places: storage.get("places") || places,
-    answers: storage.get("answers") || answers
+    answers: storage.get("answers") || answers,
   },
   getters: {
     isPlayersSet({ players }) {
@@ -113,7 +113,7 @@ export default new Vuex.Store({
       }
 
       return false;
-    }
+    },
   },
   mutations: {
     setPlayers(state, payload) {
@@ -125,28 +125,26 @@ export default new Vuex.Store({
       // storage.set("players", state.players);
 
       console.log("change", answer, name, index);
-      if (state.answers[answer][name][index] === "check_box_outline_blank") {
+      if (state.answers[answer][name][index] === checkStates.default) {
         state.answers[answer][name][index] = Vue.set(
           state.answers[answer][name],
           index,
-          "indeterminate_check_box"
+          checkStates.maybe
         );
-      } else if (
-        state.answers[answer][name][index] === "indeterminate_check_box"
-      ) {
+      } else if (state.answers[answer][name][index] === checkStates.maybe) {
         state.answers[answer][name][index] = Vue.set(
           state.answers[answer][name],
           index,
-          "check_box"
+          checkStates.checked
         );
       } else {
         state.answers[answer][name][index] = Vue.set(
           state.answers[answer][name],
           index,
-          "check_box_outline_blank"
+          checkStates.default
         );
       }
-    }
+    },
   },
   actions: {
     setPlayers({ commit }, payload) {
@@ -154,6 +152,6 @@ export default new Vuex.Store({
     },
     setAnswer({ commit }, payload) {
       commit("setAnswer", payload);
-    }
-  }
+    },
+  },
 });
